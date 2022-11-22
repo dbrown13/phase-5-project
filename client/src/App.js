@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import RegisterPage from "./RegisterPage";
 import LoginPage from "./LoginPage";
 import NavBar from "./NavBar";
+import HomePage from "./HomePage";
+import UserProfile from "./UserProfile"
+import UserTrails from "./UserTrails"
+import Locations from "./Locations"
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -16,6 +20,21 @@ function App() {
       }
     });
   }, []);
+
+  // useEffect(() => {
+  //   const options = {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: 'pbiVs1cXLGYmOw2vDh0RCQvoZz5Jw8Ira5cTU1rggg',
+  //       'X-RapidAPI-Key': '0b114220d9msh029421c00a9bb14p1e99d6jsn663712155c44',
+  //       'X-RapidAPI-Host': 'brappdbv2.p.rapidapi.com'
+  //     }
+  //   };
+  //   fetch('https://brappdbv2.p.rapidapi.com/Parks', options)
+  //   .then(res => console.log(res.text()))
+  //   // .then(data => console.log(data))
+  //   // .catch(err => console.error(err));
+  // }, [])
 
   //SETS USER AND HANDLES STATE FOR SHOWING COMPONENTS
   function onLogin(user) {
@@ -57,6 +76,12 @@ function App() {
     return (
       <div className="nav-links">
         <NavBar onLogout={onLogout} user={user} />
+        <Routes>
+          <Route exact path="/" element={<HomePage />}/>
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/usertrails" element={<UserTrails />} />
+          <Route path="/locations" element={<Locations />} />
+        </Routes>
       </div>
     );
   }
