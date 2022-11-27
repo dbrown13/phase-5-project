@@ -4,6 +4,7 @@ class CreateTrails < ActiveRecord::Migration[7.0]
       t.string :length
       t.string :difficulty
       t.string :name
+      t.belongs_to :location, null: true, foreign_key: true
 
       t.timestamps
     end

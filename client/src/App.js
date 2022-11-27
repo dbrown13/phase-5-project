@@ -12,6 +12,17 @@ import { Route, Routes } from "react-router-dom";
 function App() {
   const [user, setUser] = useState(null);
   const [needToRegister, setNeedToRegister] = useState(false);
+  const [favoriteTrail, setFavoriteTrail] = useState([]);
+  const [trails, setTrails] = useState([]);
+
+  const onFavoriteTrail = (favTrails) => {
+    const updatedTrails = trails.map((trail) => 
+    trail.id === favTrails.id 
+    ? favoriteTrail 
+    : trails
+    );
+    setTrails(updatedTrails)
+  }
 
   useEffect(() => {
     fetch("/me").then((response) => {
@@ -30,10 +41,10 @@ function App() {
   //       'X-RapidAPI-Host': 'brappdbv2.p.rapidapi.com'
   //     }
   //   };
-  //   fetch('https://brappdbv2.p.rapidapi.com/Parks', options)
-  //   .then(res => console.log(res.text()))
-  //   // .then(data => console.log(data))
-  //   // .catch(err => console.error(err));
+  //   fetch('https://brappdbv2.p.rapidapi.com/Parks?allowedvehicles=Jeep', options)
+  //   .then(res => res.json())
+  //   .then(data => console.log(data))
+  //   .catch(err => console.error(err));
   // }, [])
 
   //SETS USER AND HANDLES STATE FOR SHOWING COMPONENTS
@@ -79,7 +90,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<HomePage />}/>
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/usertrails" element={<UserTrails />} />
+          <Route path="/usertrails" element={<UserTrails onFavoriteTrail={onFavoriteTrail} favoriteTrail={favoriteTrail} setFavoriteTrail={setFavoriteTrail}/>} />
           <Route path="/locations" element={<Locations />} />
         </Routes>
       </div>
