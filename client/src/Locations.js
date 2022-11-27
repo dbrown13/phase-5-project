@@ -1,6 +1,10 @@
+import TrailCard from './TrailCard'
+
 function Locations() {
     return (
-        <h1>locations</h1>
+        <div>
+            <TrailCard />
+        </div>
     )
 }
 
