@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+puts "seeding locations"
 
 l1 = Location.create(region: "Apache Junction", state: "Arizona")
 l2 = Location.create(region: "Apache Junction", state: "Arizona")
@@ -86,6 +87,7 @@ l77 = Location.create(region: "Saint George", state: "Utah")
 l78 = Location.create(region: "Bighorn Mountains", state: "Wyoming")
 l79 = Location.create(region: "Bighorn Mountains", state: "Wyoming")
 
+puts "seeding trails"
 
 # u1 = User.find_by(name: "Deryn Brown", username: "deryn", password: "derder")
 
@@ -169,7 +171,7 @@ t77 = Trail.create(name: "Whitmore Canyon", length: "72.8 miles", difficulty: "M
 t78 = Trail.create(name: "Pryor Mountain Road", length: "12.3 miles", difficulty: "Easy", location_id: l78.id)
 t79 = Trail.create(name: "Hunt Mountain", length: "22.6 miles", difficulty: "Hard", location_id: l79.id)
 
-
+puts "seeding usertrails"
 
 ut1 = UserTrail.create(trail_id: t1.id, completion: false)
 ut2 = UserTrail.create(trail_id: t2.id, completion: false)
@@ -211,3 +213,5 @@ ut37 = UserTrail.create(trail_id: t16.id, completion: false)
 ut38 = UserTrail.create(trail_id: t16.id, completion: false)
 ut39 = UserTrail.create(trail_id: t16.id, completion: false)
 ut40 = UserTrail.create(trail_id: t16.id, completion: false)
+
+puts "done seeding!"

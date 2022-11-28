@@ -1,3 +1,5 @@
 class TrailSerializer < ActiveModel::Serializer
-  attributes :id, :usertrails_id, :length, :difficulty
+  attributes :id, :name, :length, :difficulty
+
+  belongs_to :location
 end
