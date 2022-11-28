@@ -17,7 +17,7 @@ function NavBar({ onLogout, user }) {
                         Home
                     </a>
                 </NavLink>
-                <NavLink to="/userprofile" className="text-gray-600 bg-gray-200  rounded-md p-2 font-sans font-semibold text-xl hover:font-extrabold">
+                <NavLink to="/profile" className="text-gray-600 bg-gray-200  rounded-md p-2 font-sans font-semibold text-xl hover:font-extrabold">
                     <a href="#user-profile">
                         Profile
                     </a>

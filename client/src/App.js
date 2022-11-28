@@ -30,22 +30,12 @@ function App() {
         response.json().then((user) => setUser(user));
       }
     });
+
+    fetch("/trails")
+    .then((res) => res.json())
+    .then(trails => setTrails(trails))
   }, []);
 
-  // useEffect(() => {
-  //   const options = {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: 'pbiVs1cXLGYmOw2vDh0RCQvoZz5Jw8Ira5cTU1rggg',
-  //       'X-RapidAPI-Key': '0b114220d9msh029421c00a9bb14p1e99d6jsn663712155c44',
-  //       'X-RapidAPI-Host': 'brappdbv2.p.rapidapi.com'
-  //     }
-  //   };
-  //   fetch('https://brappdbv2.p.rapidapi.com/Parks?allowedvehicles=Jeep', options)
-  //   .then(res => res.json())
-  //   .then(data => console.log(data))
-  //   .catch(err => console.error(err));
-  // }, [])
 
   //SETS USER AND HANDLES STATE FOR SHOWING COMPONENTS
   function onLogin(user) {
@@ -90,8 +80,9 @@ function App() {
         <Routes>
           <Route exact path="/" element={<HomePage />}/>
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/usertrails" element={<UserTrails onFavoriteTrail={onFavoriteTrail} favoriteTrail={favoriteTrail} setFavoriteTrail={setFavoriteTrail}/>} />
-          <Route path="/locations" element={<Locations />} />
+          <Route path="/usertrails" element={<UserTrails trails={trails} onFavoriteTrail={onFavoriteTrail} favoriteTrail={favoriteTrail} setFavoriteTrail={setFavoriteTrail}/>} />
+          <Route path="/locations" element={<Locations onFavoriteTrail={onFavoriteTrail} trails={trails} setTrails={setTrails}/>} />
+          <Route path="/locations/:state" element={<Locations trails={trails}/>} />
         </Routes>
       </div>
     );

@@ -1,11 +1,56 @@
-import TrailCard from './TrailCard'
+import TrailCard from "./TrailCard";
+import { useParams, useNavigate } from "react-router-dom";
 
-function Locations() {
-    return (
-        <div>
-            <TrailCard />
-        </div>
-    )
+function Locations({ trails, onFavoriteTrail }) {
+  const { state } = useParams();
+  const navigate = useNavigate();
+  const filteredTrails = state
+    ? trails.filter(
+        (trail) => trail.location.state.toLowerCase() === state.toLowerCase()
+      )
+    : trails;
+  const mapTrailCards = filteredTrails.map((trail) => (
+    <TrailCard
+      key={trail.id}
+      name={trail.name}
+      difficulty={trail.difficulty}
+      length={trail.length}
+      onFavoriteTrail={onFavoriteTrail}
+      trails={trails}
+    />
+  ));
+  return (
+    <div className="font-sans bg-auto bg-[url('/public/slate.jpeg')]">
+    <br></br>
+      <div className="font-sans m-auto rounded-lg text-center py-4 bg-gray-400 max-w-md">
+        <label
+          className="text-md font-bold text-gray-100"
+          htmlFor="select-state"
+        >
+          {" "}
+          SELECT A STATE:{" "}
+        </label>
+        <select
+          onChange={(e) => navigate(`/locations/${e.target.value}`)}
+          className="border-2 border-orange-200 rounded-md"
+          id="state-selection"
+        >
+          <option value="">All</option>
+          <option value="Arizona">Arizona</option>
+          <option value="California">California</option>
+          <option value="Colorado">Colorado</option>
+          <option value="Nevada">Nevada</option>
+          <option value="New Mexico">New Mexico</option>
+          <option value="South Dakota">South Dakota</option>
+          <option value="Texas">Texas</option>
+          <option value="Utah">Utah</option>
+          <option value="Wyoming">Wyoming</option>
+        </select>
+      </div>
+      <div>{mapTrailCards}</div>
+      <br></br>
+    </div>
+  );
 }
 
 export default Locations;
