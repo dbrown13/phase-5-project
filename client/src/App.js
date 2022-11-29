@@ -18,10 +18,11 @@ function App() {
   const onFavoriteTrail = (favTrails) => {
     const updatedTrails = trails.map((trail) => 
     trail.id === favTrails.id 
-    ? favoriteTrail 
-    : trails
+    ? favTrails 
+    : trail
     );
     setTrails(updatedTrails)
+    console.log(updatedTrails)
   }
 
   useEffect(() => {
