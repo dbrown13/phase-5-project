@@ -18,10 +18,11 @@ function App() {
   const onFavoriteTrail = (favTrails) => {
     const updatedTrails = trails.map((trail) => 
     trail.id === favTrails.id 
-    ? favoriteTrail 
-    : trails
+    ? favTrails 
+    : trail
     );
     setTrails(updatedTrails)
+    console.log(updatedTrails)
   }
 
   useEffect(() => {
@@ -83,6 +84,7 @@ function App() {
           <Route path="/usertrails" element={<UserTrails trails={trails} onFavoriteTrail={onFavoriteTrail} favoriteTrail={favoriteTrail} setFavoriteTrail={setFavoriteTrail}/>} />
           <Route path="/locations" element={<Locations onFavoriteTrail={onFavoriteTrail} trails={trails} setTrails={setTrails}/>} />
           <Route path="/locations/:state" element={<Locations trails={trails}/>} />
+          <Route path="/locations/:difficulty" element={<Locations trails={trails}/>} />
         </Routes>
       </div>
     );
