@@ -22,7 +22,6 @@ function App() {
     : trail
     );
     setTrails(updatedTrails)
-    console.log(updatedTrails)
   }
 
   useEffect(() => {
@@ -81,7 +80,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<HomePage />}/>
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/usertrails" element={<UserTrails trails={trails} onFavoriteTrail={onFavoriteTrail} favoriteTrail={favoriteTrail} setFavoriteTrail={setFavoriteTrail}/>} />
+          <Route path="/usertrails" element={<UserTrails trails={trails} onFavoriteTrail={onFavoriteTrail} favoriteTrail={favoriteTrail} setFavoriteTrail={setFavoriteTrail} />} />
           <Route path="/locations" element={<Locations onFavoriteTrail={onFavoriteTrail} trails={trails} setTrails={setTrails}/>} />
           <Route path="/locations/:state" element={<Locations trails={trails}/>} />
           <Route path="/locations/:difficulty" element={<Locations trails={trails}/>} />
