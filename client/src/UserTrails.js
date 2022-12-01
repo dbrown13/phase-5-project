@@ -26,16 +26,10 @@ function UserTrails({
         </div>
       );
     });
-
-    let newFavoritedTrailCards = favoriteTrails.length > 0 
-    ? favoriteTrails 
-    : 
-    <div className="bg-orange-300 opacity-90 max-w-md rounded-md text-red-800 text-center font-bold font-sans py-3 m-auto border-2 border-black">You have no saved trails. Check out the Locations tab to browse off-roading trails!</div>
-  
-    return (
-    <div className="bg-cover h-screen bg-[url('/public/slate.jpeg')]">
+  return (
+    <div className="bg-cover bg-[url('/public/slate.jpeg')]">
       <br></br>
-      <div>{newFavoritedTrailCards}</div>
+      <div>{favoriteTrails}</div>
       <br></br>
     </div>
   );
