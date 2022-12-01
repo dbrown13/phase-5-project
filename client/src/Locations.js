@@ -38,7 +38,7 @@ function Locations({ trails, onFavoriteTrail }) {
 
       return searchTrails; //returns to the setter function (setTrailsToDisplay) which then sets the state of trailsToDisplay
     });
-  }, [searchTerm, state, difficulty]);
+  }, [searchTerm, state, difficulty, trails]);
 
   //   const mapTrailCards =
   //   useEffect(() => {
@@ -87,13 +87,11 @@ function Locations({ trails, onFavoriteTrail }) {
             difficulty={trail.difficulty}
             length={trail.length}
             onFavoriteTrail={onFavoriteTrail}
-            trails={trails}
             favorite={trail.favorites}
-            trailsToDisplay={trailsToDisplay}
           />
         ))
       ) : (
-        <div className="bg-orange-300 opacity-90 max-w-md rounded-md text-red-800 text-center font-bold font-sans py-3 m-auto border-2 border-black">
+        <div className="bg-orange-300 opacity-90 max-w-md rounded-md text-red-800 text-center font-bold font-sans py-3 m-auto">
           No trails exist for selected options! Try again.
         </div>
       );
@@ -101,7 +99,7 @@ function Locations({ trails, onFavoriteTrail }) {
   }, [trailsToDisplay]);
 
   return (
-    <div className="font-sans h-screen bg-cover bg-[url('/public/slate.jpeg')]">
+    <div className="font-sans bg-auto bg-[url('/public/slate.jpeg')]">
       <br></br>
       <div className="text-center">
         <SearchBar
