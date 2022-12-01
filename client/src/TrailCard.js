@@ -1,4 +1,4 @@
-function TrailCard({ id, trails, name, length, difficulty, onFavoriteTrail, favorite }) {
+function TrailCard({ id, trails, name, length, difficulty, onFavoriteTrail, favorite, trailsToDisplay }) {
     const handleFavoriteClick = () => {
         fetch(`/trails/${id}`, {
             method: "PATCH",

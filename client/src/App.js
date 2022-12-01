@@ -4,9 +4,9 @@ import RegisterPage from "./RegisterPage";
 import LoginPage from "./LoginPage";
 import NavBar from "./NavBar";
 import HomePage from "./HomePage";
-import UserProfile from "./UserProfile"
-import UserTrails from "./UserTrails"
-import Locations from "./Locations"
+import UserProfile from "./UserProfile";
+import UserTrails from "./UserTrails";
+import Locations from "./Locations";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -14,15 +14,16 @@ function App() {
   const [needToRegister, setNeedToRegister] = useState(false);
   const [favoriteTrail, setFavoriteTrail] = useState([]);
   const [trails, setTrails] = useState([]);
+  // const [searchTerm, setSearchTerm] = useState("");
 
   const onFavoriteTrail = (favTrails) => {
-    const updatedTrails = trails.map((trail) => 
-    trail.id === favTrails.id 
-    ? favTrails 
-    : trail
+    const updatedTrails = trails.map((trail) =>
+      trail.id === favTrails.id ? favTrails : trail
     );
-    setTrails(updatedTrails)
-  }
+    setTrails(updatedTrails);
+  };
+
+
 
   useEffect(() => {
     fetch("/me").then((response) => {
@@ -32,10 +33,9 @@ function App() {
     });
 
     fetch("/trails")
-    .then((res) => res.json())
-    .then(trails => setTrails(trails))
+      .then((res) => res.json())
+      .then((trails) => setTrails(trails));
   }, []);
-
 
   //SETS USER AND HANDLES STATE FOR SHOWING COMPONENTS
   function onLogin(user) {
@@ -78,12 +78,43 @@ function App() {
       <div className="nav-links">
         <NavBar onLogout={onLogout} user={user} />
         <Routes>
-          <Route exact path="/" element={<HomePage />}/>
+          <Route exact path="/" element={<HomePage />} />
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/usertrails" element={<UserTrails trails={trails} onFavoriteTrail={onFavoriteTrail} favoriteTrail={favoriteTrail} setFavoriteTrail={setFavoriteTrail} />} />
-          <Route path="/locations" element={<Locations onFavoriteTrail={onFavoriteTrail} trails={trails} setTrails={setTrails}/>} />
-          <Route path="/locations/:state" element={<Locations trails={trails}/>} />
-          <Route path="/locations/:difficulty" element={<Locations trails={trails}/>} />
+          <Route
+            path="/usertrails"
+            element={
+              <UserTrails
+                trails={trails}
+                onFavoriteTrail={onFavoriteTrail}
+                favoriteTrail={favoriteTrail}
+                setFavoriteTrail={setFavoriteTrail}
+              />
+            }
+          />
+          <Route
+            path="/locations"
+            element={
+              <Locations
+                onFavoriteTrail={onFavoriteTrail}
+                trails={trails}
+                setTrails={setTrails}
+                // setSearchTerm={setSearchTerm}
+                // searchTerm={searchTerm}
+              />
+            }
+          />
+          <Route
+            path="/locations/:state"
+            element={<Locations trails={trails} />}
+          />
+          <Route
+            path="/locations/:difficulty"
+            element={
+              <Locations
+                trails={trails}
+              />
+            }
+          />
         </Routes>
       </div>
     );
