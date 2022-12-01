@@ -1,115 +1,53 @@
 import TrailCard from "./TrailCard";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import SearchBar from "./SearchBar";
+import { useState } from 'react'
 
 function Locations({ trails, onFavoriteTrail }) {
-//TO DO: learn what this is doing (tyler)
   const { state } = useParams();
-  const [difficulty, setDifficulty] = useState("");
-//TO DO: learn what this is doing (reese)
+  const [difficulty, setDifficulty] = useState("")
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [trailsToDisplay, setTrailsToDisplay] = useState("");
-  const [mapTrailCards, setMapTrailCards] = useState("");
+  const filteredTrails = state
+    ? trails.filter(
+        (trail) => trail.location.state.toLowerCase() === state.toLowerCase()
+      )
+    : trails;
+    // set ternary in mapTrailCards
+    // is there something set in difficulty?
+    const filteredDifficulties = filteredTrails.filter((trail) => trail.difficulty === difficulty)
 
-  useEffect(() => {
-    if(trails === []) { //this is to protect against trails promise being unresolved
-        return undefined
-    }
-    setTrailsToDisplay(() => { //this is where trailsToDisplay is referenced
-      let filteredTrails = state //filtering on geographic state (ex. Texas)
-        ? trails.filter(
-            (trail) =>
-              trail.location.state.toLowerCase() === state.toLowerCase()
-          )
-        : trails;
-
-      let filteredDifficulties = difficulty === "" ? filteredTrails : filteredTrails.filter( //filtering on trail difficulty
-        (trail) => trail.difficulty === difficulty
-      );
-
-      let searchTrails =
-        searchTerm === ""
-          ? filteredDifficulties
-          : filteredDifficulties.filter((trail) =>
-              trail.name.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-
-      return searchTrails; //returns to the setter function (setTrailsToDisplay) which then sets the state of trailsToDisplay
-    });
-  }, [searchTerm, state, difficulty]);
-
-  //   const mapTrailCards =
-  //   useEffect(() => {
-  //     difficulty
-  //       ? filteredDifficulties.map((trail) => (
-  //           <TrailCard
-  //             key={trail.id}
-  //             id={trail.id}
-  //             name={trail.name}
-  //             difficulty={trail.difficulty}
-  //             length={trail.length}
-  //             onFavoriteTrail={onFavoriteTrail}
-  //             trails={trails}
-  //             favorite={trail.favorites}
-  //             trailsToDisplay={trailsToDisplay}
-  //           />
-  //         ))
-  //       : filteredTrails.map((trail) => (
-  //           <TrailCard
-  //             key={trail.id}
-  //             id={trail.id}
-  //             name={trail.name}
-  //             difficulty={trail.difficulty}
-  //             length={trail.length}
-  //             onFavoriteTrail={onFavoriteTrail}
-  //             trails={trails}
-  //             favorite={trail.favorites}
-  //             trailsToDisplay={trailsToDisplay}
-  //           />
-  //         ));
-  //   }, [difficulty]);
-
-  //   const trailsToDisplay = searchTerm ? trailCards
-  //     .filter((trail) => trail.name.toLowerCase())
-  //     .includes(searchTerm.toLowerCase()) : trailCards;
-
-  //using separate useEffect for per-task basis (can probably include in one, but more understandable this way)
-  useEffect(() => { 
-    setMapTrailCards(() => { //separate setter/state -- protecting from infinite render loops
-      return trailsToDisplay.length > 0 ? (
-        trailsToDisplay.map((trail) => (
-          <TrailCard
-            key={trail.id}
-            id={trail.id}
-            name={trail.name}
-            difficulty={trail.difficulty}
-            length={trail.length}
-            onFavoriteTrail={onFavoriteTrail}
-            trails={trails}
-            favorite={trail.favorites}
-            trailsToDisplay={trailsToDisplay}
-          />
-        ))
+  const mapTrailCards = difficulty ? filteredDifficulties.map((trail) => (
+    <TrailCard
+      key={trail.id}
+      id={trail.id}
+      name={trail.name}
+      difficulty={trail.difficulty}
+      length={trail.length}
+      onFavoriteTrail={onFavoriteTrail}
+      trails={trails}
+      favorite={trail.favorites}
+      />
+      )
       ) : (
-        <div className="bg-orange-300 opacity-90 max-w-md rounded-md text-red-800 text-center font-bold font-sans py-3 m-auto border-2 border-black">
-          No trails exist for selected options! Try again.
-        </div>
-      );
-    });
-  }, [trailsToDisplay]);
+    filteredTrails.map((trail) => (
+    <TrailCard
+      key={trail.id}
+      id={trail.id}
+      name={trail.name}
+      difficulty={trail.difficulty}
+      length={trail.length}
+      onFavoriteTrail={onFavoriteTrail}
+      trails={trails}
+      favorite={trail.favorites}
+    />
+  ))
+  );
+    let newMappedTrailCards = mapTrailCards.length > 0 
+    ? mapTrailCards 
+    : 
+    <div className="bg-orange-300 opacity-90 max-w-md rounded-md text-red-800 text-center font-bold font-sans py-3 m-auto">No trails exist for selected options! Try again.</div>
 
   return (
-    <div className="font-sans h-screen bg-cover bg-[url('/public/slate.jpeg')]">
-      <br></br>
-      <div className="text-center">
-        <SearchBar
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          trailsToDisplay={trailsToDisplay}
-        />
-      </div>
+    <div className="font-sans bg-auto bg-[url('/public/slate.jpeg')]">
       <br></br>
       <div className="flex items-center justify-center space-x-2">
         <div className="flex font-sans p-2 rounded-md text-center py-4 bg-gray-400 max-w-md">
@@ -156,7 +94,7 @@ function Locations({ trails, onFavoriteTrail }) {
         </div>
       </div>
       <br></br>
-      <div>{mapTrailCards}</div>
+      <div >{newMappedTrailCards}</div>
       <br></br>
     </div>
   );
