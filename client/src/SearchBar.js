@@ -2,7 +2,6 @@ function SearchBar({ searchTerm, setSearchTerm, trailsToDisplay }) {
 
     function handleSearchChange(event) {
         setSearchTerm(event.target.value);
-        console.log(event.target.value)
     };
 
     return (
