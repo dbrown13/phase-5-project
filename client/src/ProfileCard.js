@@ -1,10 +1,11 @@
-function ProfileCard() {
+function ProfileCard({ user, setUser }) {
+    console.log(user.username)
   return (
     <div>
       <div className="font-sans m-auto w-80 p-4 border-4 border-black rounded-md lg:max-w-lg bg-gray-200">
         <div className="text-center space-y-2">
           <img className="border-2 border-black rounded-sm m-auto h-36" src="/avatar.jpeg" alt="avatar" />
-          <h3 className="text-2xl font-semibold">User Name Here</h3>
+          <h3 className="text-2xl font-sans font-extrabold">{user.username.toUpperCase()}</h3>
           <p className="text-gray-600">
             I want to be able to delete or add an avatar image. I want to be
             able to delete or add a note.
