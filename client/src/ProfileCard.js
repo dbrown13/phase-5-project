@@ -1,9 +1,9 @@
 function ProfileCard() {
   return (
-    <div className="bg-cover h-screen bg-[url('/public/slate.jpeg')] font-sans">
+    <div>
       <div className="font-sans m-auto w-80 p-4 border-4 border-black rounded-md lg:max-w-lg bg-gray-200">
         <div className="text-center space-y-2">
-          <img className="m-auto h-36" src="/avatar.jpeg" alt="avatar" />
+          <img className="border-2 border-black rounded-sm m-auto h-36" src="/avatar.jpeg" alt="avatar" />
           <h3 className="text-2xl font-semibold">User Name Here</h3>
           <p className="text-gray-600">
             I want to be able to delete or add an avatar image. I want to be

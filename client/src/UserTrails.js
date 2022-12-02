@@ -33,7 +33,7 @@ function UserTrails({
     <div className="bg-orange-300 opacity-90 max-w-md rounded-md text-red-800 text-center font-bold font-sans py-3 m-auto">You have no saved trails. Check out the Locations tab to browse off-roading trails!</div>
   
     return (
-    <div className="bg-cover h-screen bg-[url('/public/slate.jpeg')]">
+    <div className="bg-auto bg-[url('/public/slate.jpeg')]">
       <br></br>
       <div>{newFavoritedTrailCards}</div>
       <br></br>
