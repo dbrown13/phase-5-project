@@ -41,6 +41,7 @@ function App() {
   function onLogin(user) {
     setUser(user);
   }
+  console.log({user})
 
   function onLogout() {
     setUser("");
@@ -79,7 +80,10 @@ function App() {
         <NavBar onLogout={onLogout} user={user} />
         <Routes>
           <Route exact path="/" element={<HomePage />} />
-          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/profile" element={<UserProfile 
+            user={user}
+            setUser={setUser}
+          />} />
           <Route
             path="/usertrails"
             element={
