@@ -5,6 +5,7 @@ function UserTrails({
   favoriteTrail,
   onFavoriteTrail,
   setFavoriteTrail,
+  onCompletedTrail
 }) {
   const favoriteTrails = trails
     .filter((trail) => trail.favorites)
@@ -22,6 +23,7 @@ function UserTrails({
             difficulty={trail.difficulty}
             length={trail.length}
             favorite={trail.favorites}
+            onCompletedTrail={onCompletedTrail}
           />
         </div>
       );

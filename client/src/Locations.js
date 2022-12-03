@@ -88,6 +88,7 @@ function Locations({ trails, onFavoriteTrail }) {
             length={trail.length}
             onFavoriteTrail={onFavoriteTrail}
             favorite={trail.favorites}
+            trails={trails}
           />
         ))
       ) : (

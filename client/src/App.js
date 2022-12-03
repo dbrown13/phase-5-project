@@ -1,4 +1,5 @@
 import "./App.css";
+// import 'antd/dist/antd.css'
 import { useState, useEffect } from "react";
 import RegisterPage from "./RegisterPage";
 import LoginPage from "./LoginPage";
@@ -14,6 +15,7 @@ function App() {
   const [needToRegister, setNeedToRegister] = useState(false);
   const [favoriteTrail, setFavoriteTrail] = useState([]);
   const [trails, setTrails] = useState([]);
+  // const [completedTrail, setCompletedTrail] = useState(false);
   // const [searchTerm, setSearchTerm] = useState("");
 
   const onFavoriteTrail = (favTrails) => {
@@ -23,7 +25,12 @@ function App() {
     setTrails(updatedTrails);
   };
 
-
+  // const onCompletedTrail = (completeTrail) => {
+  //   const updatedCompletion = trails.map((trail) =>
+  //     trail.id === completeTrail.id ? completeTrail : trail
+  //   );
+  //   setTrails(updatedCompletion);
+  // };
 
   useEffect(() => {
     fetch("/me").then((response) => {
@@ -41,7 +48,6 @@ function App() {
   function onLogin(user) {
     setUser(user);
   }
-  console.log({user})
 
   function onLogout() {
     setUser("");
@@ -80,10 +86,18 @@ function App() {
         <NavBar onLogout={onLogout} user={user} />
         <Routes>
           <Route exact path="/" element={<HomePage />} />
-          <Route path="/profile" element={<UserProfile 
-            user={user}
-            setUser={setUser}
-          />} />
+          <Route
+            path="/profile"
+            element={
+              <UserProfile
+                user={user}
+                setUser={setUser}
+                // onCompletedTrail={onCompletedTrail}
+                // completedTrail={completedTrail}
+                // setCompletedTrail={setCompletedTrail}
+              />
+            }
+          />
           <Route
             path="/usertrails"
             element={
@@ -92,9 +106,14 @@ function App() {
                 onFavoriteTrail={onFavoriteTrail}
                 favoriteTrail={favoriteTrail}
                 setFavoriteTrail={setFavoriteTrail}
+                // onCompletedTrail={onCompletedTrail}
               />
             }
           />
+          {/* <Route
+            path="/usertrails/:trail_id"
+            element={<UserTrails trails={trails} />}
+          /> */}
           <Route
             path="/locations"
             element={
@@ -102,8 +121,6 @@ function App() {
                 onFavoriteTrail={onFavoriteTrail}
                 trails={trails}
                 setTrails={setTrails}
-                // setSearchTerm={setSearchTerm}
-                // searchTerm={searchTerm}
               />
             }
           />
@@ -113,11 +130,7 @@ function App() {
           />
           <Route
             path="/locations/:difficulty"
-            element={
-              <Locations
-                trails={trails}
-              />
-            }
+            element={<Locations trails={trails} />}
           />
         </Routes>
       </div>
