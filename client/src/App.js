@@ -13,9 +13,10 @@ import { Route, Routes } from "react-router-dom";
 function App() {
   const [user, setUser] = useState(null);
   const [needToRegister, setNeedToRegister] = useState(false);
-  const [favoriteTrail, setFavoriteTrail] = useState([]);
+  const [favoriteTrails, setFavoriteTrails] = useState([]);
   const [trails, setTrails] = useState([]);
-  // const [completedTrail, setCompletedTrail] = useState(false);
+  const [userTrails, setUserTrails] = useState([]);
+  const [completedTrail, setCompletedTrail] = useState(false);
   // const [searchTerm, setSearchTerm] = useState("");
 
   const onFavoriteTrail = (favTrails) => {
@@ -23,25 +24,40 @@ function App() {
       trail.id === favTrails.id ? favTrails : trail
     );
     setTrails(updatedTrails);
+    // debugger;
+    setFavoriteTrails([...favoriteTrails, favTrails]);
   };
 
-  // const onCompletedTrail = (completeTrail) => {
-  //   const updatedCompletion = trails.map((trail) =>
-  //     trail.id === completeTrail.id ? completeTrail : trail
-  //   );
-  //   setTrails(updatedCompletion);
-  // };
+  const onCompletedTrail = (completeTrail) => {
+    const updatedCompletion = trails.map((trail) =>
+      trail.id === completeTrail.id ? completeTrail : trail
+    );
+    console.log(updatedCompletion);
+    setTrails(updatedCompletion);
+  };
+
+  const onDeleteSavedTrail = (deleteTrail) => {
+    const updatedTrails = favoriteTrails.filter(
+      (trail) => trail.id !== deleteTrail
+    );
+    setFavoriteTrails(updatedTrails);
+  };
 
   useEffect(() => {
     fetch("/me").then((response) => {
       if (response.ok) {
-        response.json().then((user) => setUser(user));
+        response.json().then((user) => {
+          setUser(user);
+          setFavoriteTrails(user.usertrails);
+        });
       }
     });
 
     fetch("/trails")
       .then((res) => res.json())
-      .then((trails) => setTrails(trails));
+      .then((trails) => {
+        setTrails(trails);
+      });
   }, []);
 
   //SETS USER AND HANDLES STATE FOR SHOWING COMPONENTS
@@ -103,24 +119,30 @@ function App() {
             element={
               <UserTrails
                 trails={trails}
+                user={user}
                 onFavoriteTrail={onFavoriteTrail}
-                favoriteTrail={favoriteTrail}
-                setFavoriteTrail={setFavoriteTrail}
-                // onCompletedTrail={onCompletedTrail}
+                favoriteTrail={favoriteTrails}
+                setFavoriteTrail={setFavoriteTrails}
+                onCompletedTrail={onCompletedTrail}
               />
             }
           />
-          {/* <Route
-            path="/usertrails/:trail_id"
-            element={<UserTrails trails={trails} />}
-          /> */}
+          <Route
+            path="/usertrails/:id"
+            element={
+              <UserTrails trails={trails} onCompletedTrail={onCompletedTrail} />
+            }
+          />
           <Route
             path="/locations"
             element={
               <Locations
+                onDeleteSavedTrail={onDeleteSavedTrail}
+                user={user}
                 onFavoriteTrail={onFavoriteTrail}
                 trails={trails}
                 setTrails={setTrails}
+                onCompletedTrail={onCompletedTrail}
               />
             }
           />

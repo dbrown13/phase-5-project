@@ -1,30 +1,4 @@
-// import 'antd/dist/antd.css'
-// import { Avatar } from "antd";
-// import ProfilePicChanger from "./AvatarComponents/ProfilePicChanger";
-// import { useState } from "react";
-// import Pic1 from "./AvatarComponents/Pics/1.png";
-// import Pic2 from "./AvatarComponents/Pics/2.png";
-// import Pic3 from "./AvatarComponents/Pics/3.png";
-// import Pic4 from "./AvatarComponents/Pics/4.png";
-// import Pic5 from "./AvatarComponents/Pics/5.png";
-// import Pic6 from "./AvatarComponents/Pics/6.png";
-// import Pic7 from "./AvatarComponents/Pics/7.png";
-// import Pic8 from "./AvatarComponents/Pics/8.png";
-// import Pic9 from "./AvatarComponents/Pics/9.png";
-// import Pic10 from "./AvatarComponents/Pics/10.png";
-// import Pic11 from "./AvatarComponents/Pics/11.png";
-// import Pic12 from "./AvatarComponents/Pics/12.png";
-// import Pic13 from "./AvatarComponents/Pics/13.png";
-
-
-
 function ProfileCard({ user }) {
-  // console.log(user.username)
-//   const [image, setImage] = useState("");
-
-//   const handleImageChange = (profileImage) => {
-//     setImage(profileImage);
-//   };
 
   return (
     <div className="font-sans m-auto w-80 p-4 border-4 border-black rounded-md lg:max-w-lg bg-gray-200">
@@ -47,6 +21,38 @@ function ProfileCard({ user }) {
   </div> 
   )
 }
+
+export default ProfileCard;
+
+
+
+
+// import 'antd/dist/antd.css'
+// import { Avatar } from "antd";
+// import ProfilePicChanger from "./AvatarComponents/ProfilePicChanger";
+// import { useState } from "react";
+// import Pic1 from "./AvatarComponents/Pics/1.png";
+// import Pic2 from "./AvatarComponents/Pics/2.png";
+// import Pic3 from "./AvatarComponents/Pics/3.png";
+// import Pic4 from "./AvatarComponents/Pics/4.png";
+// import Pic5 from "./AvatarComponents/Pics/5.png";
+// import Pic6 from "./AvatarComponents/Pics/6.png";
+// import Pic7 from "./AvatarComponents/Pics/7.png";
+// import Pic8 from "./AvatarComponents/Pics/8.png";
+// import Pic9 from "./AvatarComponents/Pics/9.png";
+// import Pic10 from "./AvatarComponents/Pics/10.png";
+// import Pic11 from "./AvatarComponents/Pics/11.png";
+// import Pic12 from "./AvatarComponents/Pics/12.png";
+// import Pic13 from "./AvatarComponents/Pics/13.png";
+
+  // console.log(user.username)
+//   const [image, setImage] = useState("");
+
+//   const handleImageChange = (profileImage) => {
+//     setImage(profileImage);
+//   };
+
+
 //     <div className="font-sans m-auto w-80 p-4 border-4 border-black rounded-md lg:max-w-lg bg-gray-200">
 //       <div className="text-center space-y-2">
 //         <h3 className="text-2xl font-sans font-extrabold">
@@ -75,9 +81,3 @@ function ProfileCard({ user }) {
 //     </div>
 //   );
 // }
-
-export default ProfileCard;
-
-
-
-
