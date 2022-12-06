@@ -1,33 +1,23 @@
-import { useState } from "react";
-
 function TrailCard({
-  id,
-  name,
-  length,
-  difficulty,
-  onFavoriteTrail,
-  favorite,
-  onCompletedTrail,
-  completion,
   user,
-  onDeleteSavedTrail,
-  trail
+  trail,
+  fetchTrails,
 }) {
-    let trailData = trail
 
-    if (trail.trail) {
-        trailData = trail.trail
-    } else { 
-        trailData = trail
-    }
-    // debugger
-//   const [star, setStar] = useState(trail.favorites ? trail.favorites : trail?.user_trails?.some((userTrail) => userTrail.user_id === user.id));
-  const [star, setStar] = useState(trailData?.user_trails?.some((userTrail) => userTrail.user_id === user?.id));
+  const {
+    id,
+    name,
+    difficulty,
+    length,
+    user_trails = [],
+  } = trail
+
+  const isStarred = user_trails.find((user_trail) => user_trail.user_id === user?.id)
+  const isCompleted = user_trails.find((user_trail) => user_trail.user_id === user?.id && user_trail.completion)
 
   const handleFavoriteClick = () => {
-    setStar((star) => !star);
 
-    if (!star) {
+    if (!isStarred) {
       fetch(`/user_trails`, {
         method: "POST",
         headers: {
@@ -40,43 +30,16 @@ function TrailCard({
           favorites: true,
         }),
       })
-        .then((r) => r.json())
-        .then((data) => {
-          onFavoriteTrail(data);
-        });
     } else {
-
-        // if (!star) {
-        //     fetch(`/user_trails/${id}`, {
-        //       method: "PATCH",
-        //       headers: {
-        //         "Content-type": "application/json",
-        //       },
-        //       body: JSON.stringify({
-        //         completion: !completion,
-        //         user_id: user.id,
-        //         trail_id: id,
-        //         favorites: !favorite,
-        //       }),
-        //     })
-        //       .then((r) => r.json())
-        //       .then((data) => {
-        //         onFavoriteTrail(data);
-        //       });
-        //   } else {
-        
-       const deleteId = trail.user_trails.filter(userTrail => userTrail.trail_id === id)[0]?.id
-
-      fetch(`/user_trails/${deleteId}`, {
+      fetch(`/user_trails/${id}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
         },
-      }).then(() => {
-        onDeleteSavedTrail(deleteId);
-        console.log(deleteId)
-      });
+      })
     }
+
+    fetchTrails();
   };
 
   const handleCompleteClick = () => {
@@ -86,15 +49,35 @@ function TrailCard({
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        completion: !completion,
+        completion: !isCompleted,
       }),
     })
-      .then((r) => r.json())
-      .then((data) => {
-        console.log(data);
-        onCompletedTrail(data);
-      });
+    fetchTrails();
   };
+
+  const renderCompletedButton = () => {
+    if (isStarred) {
+      if (isCompleted) {
+        return (
+          <button
+            onClick={handleCompleteClick}
+            className="bg-gray-500 text-white border-2 border-black rounded-lg p-0.2 hover:font-bold"
+          >
+            Complete!
+          </button>
+        )
+      } else {
+        return (
+          <button
+            onClick={handleCompleteClick}
+            className="bg-gray-500 text-white border-2 border-black rounded-lg p-0.2 hover:font-bold"
+          >
+            Mark as Completed
+          </button>
+        )
+      }
+    }
+  }
 
   return (
     <div className="in-line">
@@ -106,7 +89,7 @@ function TrailCard({
         </div>
         <br></br>
         <div className="space-x-2">
-          {star ? (
+          {isStarred ? (
             <button
               onClick={handleFavoriteClick}
               className="bg-gray-500 text-white border-2 border-black rounded-lg hover:font-bold"
@@ -121,21 +104,7 @@ function TrailCard({
               ✩
             </button>
           )}
-          {completion ? (
-            <button
-              onClick={handleCompleteClick}
-              className="bg-gray-500 text-white border-2 border-black rounded-lg p-0.2 hover:font-bold"
-            >
-              Complete!
-            </button>
-          ) : (
-            <button
-              onClick={handleCompleteClick}
-              className="bg-gray-500 text-white border-2 border-black rounded-lg p-0.2 hover:font-bold"
-            >
-              Mark as Completed
-            </button>
-          )}
+          {renderCompletedButton()}
         </div>
       </div>
     </div>

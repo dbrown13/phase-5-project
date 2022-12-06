@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 
-function Locations({ user, trails, onFavoriteTrail, onCompletedTrail, onDeleteSavedTrail }) {
+function Locations({ user, trails, fetchTrails }) {
 //TO DO: learn what this is doing (tyler)
   const { state } = useParams();
   const [difficulty, setDifficulty] = useState("");
@@ -41,7 +41,6 @@ function Locations({ user, trails, onFavoriteTrail, onCompletedTrail, onDeleteSa
   }, [searchTerm, state, difficulty, trails]);
 
 
-
   //using separate useEffect for per-task basis (can probably include in one, but more understandable this way)
   useEffect(() => { 
     setMapTrailCards(() => { //separate setter/state -- protecting from infinite render loops
@@ -49,17 +48,9 @@ function Locations({ user, trails, onFavoriteTrail, onCompletedTrail, onDeleteSa
         trailsToDisplay.map((trail) => (
           <TrailCard
             key={trail.id}
-            id={trail.id}
-            name={trail.name}
-            difficulty={trail.difficulty}
-            length={trail.length}
-            onFavoriteTrail={onFavoriteTrail}
-            favorite={trail.favorites}
-            trails={trails}
-            onCompletedTrail={onCompletedTrail}
             user={user}
-            onDeleteSavedTrail={onDeleteSavedTrail}
             trail={trail}
+            fetchTrails={fetchTrails}
           />
         ))
       ) : (

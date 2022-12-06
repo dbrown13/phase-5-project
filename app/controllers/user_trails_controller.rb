@@ -15,13 +15,13 @@ class UserTrailsController < ApplicationController
     end
 
     def update
-        userTrails = UserTrail.find(params[:id])
+        userTrails = UserTrail.find_by(trail_id: params[:id])
         userTrails.update!(completion: params[:completion])
         render json: userTrails
     end
 
     def destroy
-        userTrails = UserTrail.find_by(id: params[:id])
+        userTrails = UserTrail.find_by(trail_id: params[:id])
         userTrails.destroy!
         head :no_content
     end

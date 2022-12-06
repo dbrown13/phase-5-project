@@ -13,20 +13,11 @@ import { Route, Routes } from "react-router-dom";
 function App() {
   const [user, setUser] = useState(null);
   const [needToRegister, setNeedToRegister] = useState(false);
-  const [favoriteTrails, setFavoriteTrails] = useState([]);
   const [trails, setTrails] = useState([]);
-  const [userTrails, setUserTrails] = useState([]);
   const [completedTrail, setCompletedTrail] = useState(false);
   // const [searchTerm, setSearchTerm] = useState("");
 
-  const onFavoriteTrail = (favTrails) => {
-    const updatedTrails = trails.map((trail) =>
-      trail.id === favTrails.id ? favTrails : trail
-    );
-    setTrails(updatedTrails);
-    // debugger;
-    setFavoriteTrails([...favoriteTrails, favTrails]);
-  };
+  // console.log(trails)
 
   const onCompletedTrail = (completeTrail) => {
     const updatedCompletion = trails.map((trail) =>
@@ -36,28 +27,23 @@ function App() {
     setTrails(updatedCompletion);
   };
 
-  const onDeleteSavedTrail = (deleteTrail) => {
-    const updatedTrails = favoriteTrails.filter(
-      (trail) => trail.id !== deleteTrail
-    );
-    setFavoriteTrails(updatedTrails);
-  };
+  const fetchTrails = () => {
+    fetch("/trails")
+      .then((res) => res.json())
+      .then((trails) => {
+        setTrails(trails);
+      });
+  }
 
   useEffect(() => {
     fetch("/me").then((response) => {
       if (response.ok) {
         response.json().then((user) => {
           setUser(user);
-          setFavoriteTrails(user.usertrails);
         });
       }
     });
-
-    fetch("/trails")
-      .then((res) => res.json())
-      .then((trails) => {
-        setTrails(trails);
-      });
+    fetchTrails();
   }, []);
 
   //SETS USER AND HANDLES STATE FOR SHOWING COMPONENTS
@@ -108,9 +94,8 @@ function App() {
               <UserProfile
                 user={user}
                 setUser={setUser}
-                // onCompletedTrail={onCompletedTrail}
-                // completedTrail={completedTrail}
-                // setCompletedTrail={setCompletedTrail}
+                trails={trails}
+                fetchTrails={fetchTrails}
               />
             }
           />
@@ -120,10 +105,7 @@ function App() {
               <UserTrails
                 trails={trails}
                 user={user}
-                onFavoriteTrail={onFavoriteTrail}
-                favoriteTrail={favoriteTrails}
-                setFavoriteTrail={setFavoriteTrails}
-                onCompletedTrail={onCompletedTrail}
+                fetchTrails={fetchTrails}
               />
             }
           />
@@ -137,22 +119,19 @@ function App() {
             path="/locations"
             element={
               <Locations
-                onDeleteSavedTrail={onDeleteSavedTrail}
                 user={user}
-                onFavoriteTrail={onFavoriteTrail}
                 trails={trails}
-                setTrails={setTrails}
-                onCompletedTrail={onCompletedTrail}
+                fetchTrails={fetchTrails}
               />
             }
           />
           <Route
             path="/locations/:state"
-            element={<Locations trails={trails} />}
+            element={<Locations user={user} fetchTrails={fetchTrails} trails={trails} />}
           />
           <Route
             path="/locations/:difficulty"
-            element={<Locations trails={trails} />}
+            element={<Locations trails={trails} user={user} fetchTrails={fetchTrails}  />}
           />
         </Routes>
       </div>
