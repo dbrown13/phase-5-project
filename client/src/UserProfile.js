@@ -11,7 +11,7 @@ function UserProfile({ fetchTrails, user, setUser, trails, handleAddBio, handleC
       </div>
       <br></br>
       <div>
-      <h1 className="text-center text-white text-xl"> List of Your Completed Trails: </h1>
+      <h1 className="text-center text-white text-xl bg-gray-500 max-w-sm rounded-md m-auto"> List of Your Completed Trails: </h1>
         <CompletedTrails fetchTrails={fetchTrails} user={user} trails={trails} />
       </div>
     </div>
