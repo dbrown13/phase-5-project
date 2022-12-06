@@ -1,5 +1,4 @@
 import "./App.css";
-// import 'antd/dist/antd.css'
 import { useState, useEffect } from "react";
 import RegisterPage from "./RegisterPage";
 import LoginPage from "./LoginPage";
@@ -15,17 +14,21 @@ function App() {
   const [needToRegister, setNeedToRegister] = useState(false);
   const [trails, setTrails] = useState([]);
   const [completedTrail, setCompletedTrail] = useState(false);
-  // const [searchTerm, setSearchTerm] = useState("");
+  const [showBioForm, setShowBioForm] = useState(false)
+  const [bio, setBio]= useState("")
 
-  // console.log(trails)
 
   const onCompletedTrail = (completeTrail) => {
     const updatedCompletion = trails.map((trail) =>
       trail.id === completeTrail.id ? completeTrail : trail
     );
-    console.log(updatedCompletion);
     setTrails(updatedCompletion);
   };
+
+  const handleClickFormShow = () => {
+    setShowBioForm((showBioForm) => !showBioForm)
+  }
+
 
   const fetchTrails = () => {
     fetch("/trails")
@@ -96,6 +99,9 @@ function App() {
                 setUser={setUser}
                 trails={trails}
                 fetchTrails={fetchTrails}
+                handleClickFormShow={handleClickFormShow}
+                showBioForm={showBioForm}
+                setShowBioForm={setShowBioForm}
               />
             }
           />

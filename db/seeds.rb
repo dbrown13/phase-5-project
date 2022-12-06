@@ -94,7 +94,7 @@ l79 = Location.create(region: "Bighorn Mountains", state: "Wyoming")
 
 puts "seeding trails"
 
-u1 = User.create(name: "Deryn Brown", username: "deryn", password: "derder")
+u1 = User.create(name: "Deryn Brown", username: "deryn", password: "derder", bio: "")
 
 t1 = Trail.create(name: "Apache Trail GP", length: "19.8 miles", difficulty: "Easy", location_id: l1.id)
 t2 = Trail.create(name: "Devil's Canyon", length: "6.7 miles", difficulty: "Hard", location_id: l2.id)

@@ -14,7 +14,7 @@ function UserTrails({
   }).filter((trail) => trail !== null);
 
   return (
-    <div className="bg-auto h-screen bg-[url('/public/slate.jpeg')]">
+    <div className="bg-auto bg-[url('/public/slate.jpeg')]">
       <br></br>
       <div>{currentUserTrails.map((trail) => (
         <TrailCard
