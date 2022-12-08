@@ -62,7 +62,7 @@ function Locations({ user, trails, fetchTrails }) {
   }, [trailsToDisplay]);
 
   return (
-    <div className="font-sans bg-cover h-screen bg-[url('/public/slate.jpeg')]">
+    <div className="font-sans bg-auto bg-[url('/public/slate.jpeg')]">
       <br></br>
       <div className="text-center">
         <SearchBar
@@ -117,7 +117,7 @@ function Locations({ user, trails, fetchTrails }) {
         </div>
       </div>
       <br></br>
-      <div>{mapTrailCards}</div>
+      <div className="grid grid-cols-4 gap-1">{mapTrailCards}</div>
       <br></br>
     </div>
   );
