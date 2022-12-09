@@ -4,7 +4,7 @@ import CompletedTrails from "./CompletedTrails";
 function UserProfile({ fetchTrails, user, setUser, trails, handleAddBio, handleClickFormShow, showBioForm, setShowBioForm }) {
 
   return (
-    <div className="bg-cover h-screen bg-[url('/public/slate.jpeg')] font-sans">
+    <div className="bg-auto h-screen bg-[url('/public/slate.jpeg')] font-sans">
       <br></br>
       <div>
         <ProfileCard user={user} setUser={setUser} handleAddBio={handleAddBio} handleClickFormShow={handleClickFormShow} showBioForm={showBioForm} setShowBioForm={setShowBioForm}/>

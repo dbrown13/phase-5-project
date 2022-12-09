@@ -117,7 +117,7 @@ function Locations({ user, trails, fetchTrails }) {
         </div>
       </div>
       <br></br>
-      <div className="grid grid-cols-4 gap-1">{mapTrailCards}</div>
+      <div className="grid grid-cols-4 gap-1 text-center">{mapTrailCards}</div>
       <br></br>
     </div>
   );
