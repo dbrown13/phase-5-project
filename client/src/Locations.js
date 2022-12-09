@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 
-function Locations({ trails, onFavoriteTrail }) {
+function Locations({ user, trails, fetchTrails }) {
 //TO DO: learn what this is doing (tyler)
   const { state } = useParams();
   const [difficulty, setDifficulty] = useState("");
@@ -40,40 +40,6 @@ function Locations({ trails, onFavoriteTrail }) {
     });
   }, [searchTerm, state, difficulty, trails]);
 
-  //   const mapTrailCards =
-  //   useEffect(() => {
-  //     difficulty
-  //       ? filteredDifficulties.map((trail) => (
-  //           <TrailCard
-  //             key={trail.id}
-  //             id={trail.id}
-  //             name={trail.name}
-  //             difficulty={trail.difficulty}
-  //             length={trail.length}
-  //             onFavoriteTrail={onFavoriteTrail}
-  //             trails={trails}
-  //             favorite={trail.favorites}
-  //             trailsToDisplay={trailsToDisplay}
-  //           />
-  //         ))
-  //       : filteredTrails.map((trail) => (
-  //           <TrailCard
-  //             key={trail.id}
-  //             id={trail.id}
-  //             name={trail.name}
-  //             difficulty={trail.difficulty}
-  //             length={trail.length}
-  //             onFavoriteTrail={onFavoriteTrail}
-  //             trails={trails}
-  //             favorite={trail.favorites}
-  //             trailsToDisplay={trailsToDisplay}
-  //           />
-  //         ));
-  //   }, [difficulty]);
-
-  //   const trailsToDisplay = searchTerm ? trailCards
-  //     .filter((trail) => trail.name.toLowerCase())
-  //     .includes(searchTerm.toLowerCase()) : trailCards;
 
   //using separate useEffect for per-task basis (can probably include in one, but more understandable this way)
   useEffect(() => { 
@@ -82,12 +48,9 @@ function Locations({ trails, onFavoriteTrail }) {
         trailsToDisplay.map((trail) => (
           <TrailCard
             key={trail.id}
-            id={trail.id}
-            name={trail.name}
-            difficulty={trail.difficulty}
-            length={trail.length}
-            onFavoriteTrail={onFavoriteTrail}
-            favorite={trail.favorites}
+            user={user}
+            trail={trail}
+            fetchTrails={fetchTrails}
           />
         ))
       ) : (
@@ -154,10 +117,47 @@ function Locations({ trails, onFavoriteTrail }) {
         </div>
       </div>
       <br></br>
-      <div>{mapTrailCards}</div>
+      <div className="grid grid-cols-4 gap-1 text-center">{mapTrailCards}</div>
       <br></br>
     </div>
   );
 }
 
 export default Locations;
+
+
+
+  //   const mapTrailCards =
+  //   useEffect(() => {
+  //     difficulty
+  //       ? filteredDifficulties.map((trail) => (
+  //           <TrailCard
+  //             key={trail.id}
+  //             id={trail.id}
+  //             name={trail.name}
+  //             difficulty={trail.difficulty}
+  //             length={trail.length}
+  //             onFavoriteTrail={onFavoriteTrail}
+  //             trails={trails}
+  //             favorite={trail.favorites}
+  //             trailsToDisplay={trailsToDisplay}
+  //           />
+  //         ))
+  //       : filteredTrails.map((trail) => (
+  //           <TrailCard
+  //             key={trail.id}
+  //             id={trail.id}
+  //             name={trail.name}
+  //             difficulty={trail.difficulty}
+  //             length={trail.length}
+  //             onFavoriteTrail={onFavoriteTrail}
+  //             trails={trails}
+  //             favorite={trail.favorites}
+  //             trailsToDisplay={trailsToDisplay}
+  //           />
+  //         ));
+  //   }, [difficulty]);
+
+  //   const trailsToDisplay = searchTerm ? trailCards
+  //     .filter((trail) => trail.name.toLowerCase())
+  //     .includes(searchTerm.toLowerCase()) : trailCards;

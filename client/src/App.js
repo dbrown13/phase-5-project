@@ -12,36 +12,47 @@ import { Route, Routes } from "react-router-dom";
 function App() {
   const [user, setUser] = useState(null);
   const [needToRegister, setNeedToRegister] = useState(false);
-  const [favoriteTrail, setFavoriteTrail] = useState([]);
   const [trails, setTrails] = useState([]);
-  // const [searchTerm, setSearchTerm] = useState("");
+  const [completedTrail, setCompletedTrail] = useState(false);
+  const [showBioForm, setShowBioForm] = useState(false)
+  const [bio, setBio]= useState("")
 
-  const onFavoriteTrail = (favTrails) => {
-    const updatedTrails = trails.map((trail) =>
-      trail.id === favTrails.id ? favTrails : trail
+
+  const onCompletedTrail = (completeTrail) => {
+    const updatedCompletion = trails.map((trail) =>
+      trail.id === completeTrail.id ? completeTrail : trail
     );
-    setTrails(updatedTrails);
+    setTrails(updatedCompletion);
   };
 
+  const handleClickFormShow = () => {
+    setShowBioForm((showBioForm) => !showBioForm)
+  }
 
+
+  const fetchTrails = () => {
+    fetch("/trails")
+      .then((res) => res.json())
+      .then((trails) => {
+        setTrails(trails);
+      });
+  }
 
   useEffect(() => {
     fetch("/me").then((response) => {
       if (response.ok) {
-        response.json().then((user) => setUser(user));
+        response.json().then((user) => {
+          setUser(user);
+        });
       }
     });
-
-    fetch("/trails")
-      .then((res) => res.json())
-      .then((trails) => setTrails(trails));
+    fetchTrails();
   }, []);
 
   //SETS USER AND HANDLES STATE FOR SHOWING COMPONENTS
   function onLogin(user) {
     setUser(user);
   }
-  console.log({user})
 
   function onLogout() {
     setUser("");
@@ -80,44 +91,53 @@ function App() {
         <NavBar onLogout={onLogout} user={user} />
         <Routes>
           <Route exact path="/" element={<HomePage />} />
-          <Route path="/profile" element={<UserProfile 
-            user={user}
-            setUser={setUser}
-          />} />
+          <Route
+            path="/profile"
+            element={
+              <UserProfile
+                user={user}
+                setUser={setUser}
+                trails={trails}
+                fetchTrails={fetchTrails}
+                handleClickFormShow={handleClickFormShow}
+                showBioForm={showBioForm}
+                setShowBioForm={setShowBioForm}
+              />
+            }
+          />
           <Route
             path="/usertrails"
             element={
               <UserTrails
                 trails={trails}
-                onFavoriteTrail={onFavoriteTrail}
-                favoriteTrail={favoriteTrail}
-                setFavoriteTrail={setFavoriteTrail}
+                user={user}
+                fetchTrails={fetchTrails}
               />
+            }
+          />
+          <Route
+            path="/usertrails/:id"
+            element={
+              <UserTrails trails={trails} onCompletedTrail={onCompletedTrail} />
             }
           />
           <Route
             path="/locations"
             element={
               <Locations
-                onFavoriteTrail={onFavoriteTrail}
+                user={user}
                 trails={trails}
-                setTrails={setTrails}
-                // setSearchTerm={setSearchTerm}
-                // searchTerm={searchTerm}
+                fetchTrails={fetchTrails}
               />
             }
           />
           <Route
             path="/locations/:state"
-            element={<Locations trails={trails} />}
+            element={<Locations user={user} fetchTrails={fetchTrails} trails={trails} />}
           />
           <Route
             path="/locations/:difficulty"
-            element={
-              <Locations
-                trails={trails}
-              />
-            }
+            element={<Locations trails={trails} user={user} fetchTrails={fetchTrails}  />}
           />
         </Routes>
       </div>

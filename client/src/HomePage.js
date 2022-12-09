@@ -12,8 +12,11 @@ function HomePage() {
       <div className="flex justify-center items-center">
         <HomeGallery />
       </div>
-      {/* put a search bar here */}
+      <br></br>
+      <br></br>
+      <br></br>
     </div>
+    
   );
 }
 
