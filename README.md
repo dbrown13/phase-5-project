@@ -19,7 +19,7 @@ The setup steps expect the following tools installed:
 * React.js
 * Ruby on Rails
 
-## Available Scripts - React.js
+## React.js start-up
 
 In the project directory, you can run:
 
