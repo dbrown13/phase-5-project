@@ -10,7 +10,7 @@ CSS: Tailwind;
 
 LINK TO DEMO VIDEO: https://youtu.be/B3yoMHOD1zY
 
-![Uploading Screen Shot 2022-12-12 at 11.52.55 AM.png…]()
+<img width="1664" alt="Screen Shot 2022-12-12 at 11 52 55 AM" src="https://user-images.githubusercontent.com/109038259/221990037-4b2d503c-9fae-4c73-ae4c-9be82b1dcca2.png">
 
 
 ## Prerequisites:
