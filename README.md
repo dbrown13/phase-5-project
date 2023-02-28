@@ -8,6 +8,8 @@ Front-end development: React.js;
 Back-end development: Ruby on Rails;
 CSS: Tailwind;
 
+LINK TO DEMO VIDEO: https://youtu.be/B3yoMHOD1zY
+
 ## Prerequisites:
 The setup steps expect the following tools installed:
 * GitHub
