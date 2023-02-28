@@ -10,6 +10,9 @@ CSS: Tailwind;
 
 LINK TO DEMO VIDEO: https://youtu.be/B3yoMHOD1zY
 
+![Uploading Screen Shot 2022-12-12 at 11.52.55 AM.png…]()
+
+
 ## Prerequisites:
 The setup steps expect the following tools installed:
 * GitHub
