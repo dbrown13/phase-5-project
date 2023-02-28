@@ -1,13 +1,12 @@
 # JeeperCreeper
 
-
-This project was developed with [Create React App](https://github.com/facebook/create-react-app).
 This app allows users to register and/or login, search for or filter for off-roading trails, save trails to the user profile or mark trails as completed, and create a personal bio on the user's profile page.
 
+This project was developed with [Create React App](https://github.com/facebook/create-react-app).
 
-Front-end development: React.js
-Back-end development: Ruby on Rails
-CSS: Tailwind
+Front-end development: React.js;
+Back-end development: Ruby on Rails;
+CSS: Tailwind;
 
 ## Available Scripts
 
